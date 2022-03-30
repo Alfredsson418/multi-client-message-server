@@ -1,7 +1,7 @@
 import socket
 import threading 
 
-HOST = int(input("IP to Connect to,  \nPort: "))
+HOST = input("IP to Connect to,  \nPort: ")
 CLIENTNAME = socket.gethostbyname(socket.gethostname())
 PORT = input("Press Enter without any text to use default Port (Default Port: 8090) \nPort: ")
 if (PORT == ""):
