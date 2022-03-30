@@ -3,7 +3,7 @@ import threading
 
 
 HOST = socket.gethostbyname(socket.gethostname())
-PORT = int(input("Default Port is 8090 \nPort: "))
+PORT = input("Default Port is 8090 \nIP: ")
 if (PORT == ""):
     PORT = 8090
 ADDR = (HOST, PORT)
