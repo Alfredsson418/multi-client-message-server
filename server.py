@@ -6,6 +6,8 @@ HOST = socket.gethostbyname(socket.gethostname())
 PORT = input("Default Port is 8090 \nPort: ")
 if (PORT == ""):
     PORT = 8090
+else:
+    PORT = int(PORT)
 ADDR = (HOST, PORT)
 HEADER = 16
 DECODEFORMAT = "utf-8"
