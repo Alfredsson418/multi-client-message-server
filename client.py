@@ -3,9 +3,11 @@ import threading
 
 HOST = int(input("IP to Connect to,  \nPort: "))
 CLIENTNAME = socket.gethostbyname(socket.gethostname())
-PORT = int(input("Press Enter without any text to use default Port (Default Port: 8090) \nPort: "))
+PORT = input("Press Enter without any text to use default Port (Default Port: 8090) \nPort: ")
 if (PORT == ""):
     PORT = 8090
+else:
+    PORT = int(PORT)
 ADDR = (HOST, PORT)
 HEADER = 16
 ENCODEFORMAT = "utf-8"
