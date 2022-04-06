@@ -8,6 +8,8 @@ if (PORT == ""):
     PORT = 8090
 else:
     PORT = int(PORT)
+SERVER_PASSWORD = str(input("Password for server: "))
+CORRECT_PASSWORD_MESSAGE = "[SERVER] Correct Password!"
 ADDR = (HOST, PORT)
 HEADER = 16
 DECODEFORMAT = "utf-8"
@@ -27,6 +29,7 @@ help! - gets this message
 
 
 
+
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.bind(ADDR)
 
@@ -35,6 +38,17 @@ clients_lock = threading.Lock()
 
 def clientComm(conn, addr):
     print(f"[Server] Client Connected [{addr}], Number of Active Connections: {threading.active_count() - 1}")
+
+    password = conn.recv(1024).decode(DECODEFORMAT)
+
+    if str(password) != SERVER_PASSWORD:
+        INCORRECT_PASSWORD_MESSAGE = "[SERVER] Incorrect password!"
+        conn.send(INCORRECT_PASSWORD_MESSAGE.encode(DECODEFORMAT))
+        conn.close()
+        return
+    else:
+        conn.send(CORRECT_PASSWORD_MESSAGE.encode(DECODEFORMAT))
+    
 
     with clients_lock:
         clients.add(conn)
