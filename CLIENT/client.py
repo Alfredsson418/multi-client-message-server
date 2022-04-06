@@ -20,7 +20,7 @@ DISCONNECT = False
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(ADDR)
-print(f"[Server] Connected to: ", ADDR)
+
 
 def getMessages():
     while True:
@@ -58,6 +58,7 @@ if(str(pswText) == "[SERVER] Incorrect password!"):
     pass
 
 else:
+    print(f"[Server] Connected to: ", ADDR)
     thread = threading.Thread(target=getMessages)
     thread.start()
     while True:
