@@ -20,6 +20,7 @@ DISCONNECT = False
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(ADDR)
+print(f"[Server] Coneccted to: ", ADDR)
 
 def getMessages():
     while True:
@@ -50,7 +51,7 @@ def disconnect():
 thread = threading.Thread(target=getMessages)
 thread.start()
 while True:
-    msg = str(input(f"[Client] {CLIENTNAME}: "))
+    msg = str(input())
     
     if msg.lower() == DISCONNECT_MESSAGE:
         disconnect()
