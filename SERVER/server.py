@@ -15,8 +15,15 @@ SERVERSTOP = False
 SERVER_STOP_MESSAGE = "[Server] Stopping..."
 
 
-DISCONNECT_MESSAGE = "exit"
-HELP_MESSAGE = "-h"
+DISCONNECT_MESSAGE = "exit!"
+HELP_MESSAGE = "help!"
+helpText = """
+
+Commands:
+exit! -  exit connection
+help! - gets this message
+
+"""
 
 
 
@@ -45,6 +52,9 @@ def clientComm(conn, addr):
 
             if str(data) == DISCONNECT_MESSAGE:
                 break
+            elif str(data) == HELP_MESSAGE:
+            
+                conn.sendall(helpText.encode(DECODEFORMAT))
 
             else:
                 data = f"[Client][{addr}] {data}"
@@ -80,4 +90,3 @@ def startUp():
 
 
 startUp()
-
