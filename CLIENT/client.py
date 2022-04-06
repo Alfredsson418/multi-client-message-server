@@ -20,7 +20,7 @@ DISCONNECT = False
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect(ADDR)
-print(f"[Server] Coneccted to: ", ADDR)
+print(f"[Server] Connected to: ", ADDR)
 
 def getMessages():
     while True:
@@ -48,16 +48,26 @@ def disconnect():
     sock.send(DISCONNECT_MESSAGE.encode(ENCODEFORMAT))
 
 
-thread = threading.Thread(target=getMessages)
-thread.start()
-while True:
-    msg = str(input())
-    
-    if msg.lower() == DISCONNECT_MESSAGE:
-        disconnect()
-        DISCONNECT = True
-        DISCONNECT_MESSAGE_TEXT = "[Client] User Disconnected"
-        print(DISCONNECT_MESSAGE_TEXT)
-        break
-    else:
-        textToServer(msg)
+password = str(input("Password: "))
+
+sock.send(password.encode(ENCODEFORMAT))
+pswText = sock.recv(1024).decode(ENCODEFORMAT)
+if(str(pswText) == "[SERVER] Incorrect password!"):
+    # This is so that the program closes correctly
+    print(pswText)
+    pass
+
+else:
+    thread = threading.Thread(target=getMessages)
+    thread.start()
+    while True:
+        msg = str(input())
+        
+        if msg.lower() == DISCONNECT_MESSAGE:
+            disconnect()
+            DISCONNECT = True
+            DISCONNECT_MESSAGE_TEXT = "[Client] User Disconnected"
+            print(DISCONNECT_MESSAGE_TEXT)
+            break
+        else:
+            textToServer(msg)
